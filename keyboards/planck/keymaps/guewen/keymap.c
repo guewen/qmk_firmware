@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   :  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Sft/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | FN   | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Raise | AltGr|Menu  |Ctrl  |      |
+ * | FN   | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Raise | AltGr|Menu  |Ctrl  |MOVE_FN|
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT_planck_grid(
@@ -155,22 +155,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,        _______, XXXXXXX, KC_DEL,  XXXXXXX,  KC_DEL,  KC_SPC,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
 ),
 
-/* Space fn
+/* MOVE_FN
  * ,-----------------------------------------------------------------------------------.
  * |PRNT SC| HOME |  UP  | END  | PGUP |      |      |      |      |      |      |      |
  * |-------+------+------+------+------+-------------+------+------+------+------+------|
  * |Mouse  | LEFT | DOWN | RIGHT|PGDOWN|      |      | LEFT | DOWN |  UP  | RIGHT|      |
  * |-------+------+------+------+------+------|------+------+------+------+------+------|
- * |       |      |      |      |      |      |      |      |      |      |      | PREV |
+ * |       |      |      |      |      |      |      |      |      |PLAYPA| PREV | NEXT |
  * |-------+------+------+------+------+------+------+------+------+------+------+------|
- * |       |      |      |      |      |             |      | MUTE |VOLDWN|VOL UP| NEXT |
+ * |       |      |      |      |      |             |      | MUTE |VOLDWN|VOL UP|      |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOVE_FN] = LAYOUT_planck_grid(
     KC_PSCR,  KC_HOME, KC_UP,    KC_END,    KC_PGUP,   XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,    XXXXXXX,
     TG(_MOUSE),    KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_PGDN,   XXXXXXX,  XXXXXXX,  KC_LEFT, KC_DOWN,  KC_UP,       KC_RIGHT,   XXXXXXX,
-    _______,  XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,    KC_MRWD,
-    _______,  _______, _______,  _______,   _______,   _______,  _______,  _______, KC_MUTE,  KC_VOLD,     KC_VOLU,    KC_MFFD
+    _______,  XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,  KC_MPLY,     KC_MPRV,    KC_MNXT,
+    _______,  _______, _______,  _______,   _______,   _______,  _______,  _______, KC_MUTE,  KC_VOLD,     KC_VOLU,    _______
 ),
 
 
