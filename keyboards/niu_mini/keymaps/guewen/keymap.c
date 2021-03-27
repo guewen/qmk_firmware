@@ -47,7 +47,8 @@ enum keymap_keycodes {
   STRUT  // ᕕ( ᐛ )ᕗ
 };
 
-#define MOVE_COLN LT(_MOVE, FR_CH_COLN)
+#define MOVE_COLN LT(_MOVE, LSFT(FR_CH_COLN))
+#define MOVE_Z LT(_MOVE, LSFT(FR_CH_Z))
 
 /************************************
  * keymaps!
@@ -59,22 +60,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   '  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  |  /   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Ctrl*|   A* |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  | Bksp |
+ * | Esc* |   A* |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  | Bksp |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   :  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Alt* | Mouse| Alt  | GUI  |Lower*|    Space    |Raise*| Altgr| Menu | Ctrl | Vim  |
+ * | Ctrl | Mouse| Alt  | GUI  |Lower*|    Space    |Raise*| Altgr| Menu | Ctrl | Vim  |
  * `-----------------------------------------------------------------------------------'
  *
  * - Ctrl acts as Esc when tapped.
- * - Holding ; switches to movement layer.
+ * - Holding ; or z switches to movement layer.
  * - Raise and Lower are one-shot layers.
+ * - vim disabled for now (works only on osx)
  */
 [_DVORAK] = LAYOUT_planck_mit(
-    KC_TAB,         FR_CH_QUOT, FR_CH_COMM, FR_CH_DOT, FR_CH_P, FR_CH_Y,  FR_CH_F,   FR_CH_G, FR_CH_C, FR_CH_R, FR_CH_L, FR_CH_SLSH,
-    LCTL_T(KC_ESC), FR_CH_A,    FR_CH_O,    FR_CH_E,   FR_CH_U, FR_CH_I,  FR_CH_D,   FR_CH_H, FR_CH_T, FR_CH_N, FR_CH_S, KC_BSPC,
-    KC_LSFT,        MOVE_COLN,  FR_CH_Q,    FR_CH_J,   FR_CH_K, FR_CH_X,  FR_CH_B,   FR_CH_M, FR_CH_W, FR_CH_V, FR_CH_Z, RSFT_T(KC_ENT),
-    LSFT(KC_LALT),  TG(_MOUSE), KC_LALT,    KC_LGUI,   LOWER,         KC_SPC,        RAISE,   KC_RALT, KC_MENU, KC_RCTL, VIM_START
+    KC_TAB,         FR_CH_QUOT, FR_CH_COMM,  FR_CH_DOT, FR_CH_P, FR_CH_Y,  FR_CH_F,   FR_CH_G, FR_CH_C, FR_CH_R, FR_CH_L, FR_CH_SLSH,
+    LCTL_T(KC_ESC), FR_CH_A,    FR_CH_O,     FR_CH_E,   FR_CH_U, FR_CH_I,  FR_CH_D,   FR_CH_H, FR_CH_T, FR_CH_N, FR_CH_S, KC_BSPC,
+    KC_LSFT,        FR_CH_COLN, FR_CH_Q,     FR_CH_J,   FR_CH_K, FR_CH_X,  FR_CH_B,   FR_CH_M, FR_CH_W, FR_CH_V, MOVE_Z,  RSFT_T(KC_ENT),
+    KC_LCTL,        TG(_MOUSE), KC_LALT,     KC_LGUI,   LOWER,         KC_SPC,        RAISE,   KC_RALT, KC_APP,  KC_RCTL, X_____X
 ),
 
 
@@ -154,15 +156,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 /* movement layer (hold semicolon)
- */
+* ,-------------------------------------------------------------------------------------.
+* | Bail   |      |Ctrl← | Up   |Ctrl→ |      |      |      | PgUp |      |      |      |
+* |--------+------+------+------+------+-------------+------+------+------+------+------|
+* |        |      | Left | Down |Right |      |      | Home |      | End  |      |      |
+* |--------+------+------+------+------+------|------+------+------+------+------+------|
+* |        |      |      |      |      |      |      |      | PgDn |      |      |      |
+* |--------+------+------+------+------+------+------+------+------+------+------+------|
+* |        | Bail |      |      |      |             |      |      |      |      | Bail |
+* `-------------------------------------------------------------------------------------'
+*/
 [_MOVE] = LAYOUT_planck_mit(
-    TO(_DVORAK), LCTL(KC_LEFT), KC_UP,   LCTL(KC_RIGHT), X_____X, X_____X,  X_____X, X_____X, KC_PGUP, X_____X, X_____X,     X_____X,
-    _______,     KC_LEFT,       KC_DOWN, KC_RIGHT,       X_____X, X_____X,  X_____X, KC_HOME, X_____X, KC_END,  X_____X,     X_____X,
-    _______,     X_____X,       X_____X, X_____X,        X_____X, X_____X,  X_____X, X_____X, KC_PGDN, X_____X, X_____X,     _______,
-    _______,     TO(_DVORAK),   _______, _______,        _______,      X_____X,      _______, _______, _______, TO(_DVORAK), X_____X
+    TO(_DVORAK), X_____X,      LCTL(KC_LEFT), KC_UP,   LCTL(KC_RIGHT),  X_____X,  X_____X, X_____X, KC_PGUP, X_____X, X_____X,     X_____X,
+    _______,     X_____X,      KC_LEFT,       KC_DOWN, KC_RIGHT,        X_____X,  X_____X, KC_HOME, X_____X, KC_END,  X_____X,     X_____X,
+    _______,     X_____X,      X_____X,       X_____X, X_____X,         X_____X,  X_____X, X_____X, KC_PGDN, X_____X, X_____X,     _______,
+    _______,     TO(_DVORAK),  _______,       _______,        _______,      X_____X,      _______, _______, _______, TO(_DVORAK), X_____X
 ),
 
 /* mouse layer
+ * ,-------------------------------------------------------------------------------------.
+ * | Bail   |      |      | Up   |      |      |WHLEFT|WHDOWN|WHUP  |WHRGHT|      |      |
+ * |--------+------+------+------+------+-------------+------+------+------+------+------|
+ * |        |      | Left | Down | Right|      |      | BTN1 | BTN2 | BTN3 |      |      |
+ * |--------+------+------+------+------+------|------+------+------+------+------+------|
+ * |        |      |      |      |      |      |      |      |      |      |      |      |
+ * |--------+------+------+------+------+------+------+------+------+------+------+------|
+ * |        | Bail |      |      |      |             |      |      |      | Bail |      |
+ * `-------------------------------------------------------------------------------------'
  */
 [_MOUSE] = LAYOUT_planck_mit(
     TO(_DVORAK), X_____X,     X_____X,    KC_MS_UP,   X_____X,     X_____X, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_UP, KC_MS_WH_RIGHT, X_____X,     X_____X,
@@ -189,6 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_YAN 0x00, 0xFF, 0xFF
 #define C_PRP 0x7A, 0x00, 0xFF
 #define C_ORG 0xFF, 0x93, 0x00
+#define C_PNK 0xFF, 0x14, 0x93
 
 /** Set just 4 LEDs closest to the user. Slightly less annoying to bystanders.*/
 void rgbflag(uint8_t r, uint8_t g, uint8_t b, uint8_t rr, uint8_t gg, uint8_t bb) {
@@ -230,6 +251,9 @@ void set_state_leds(void) {
     case _MOVE:
       rgbflag(C_RED, C_PRP);
       break;
+    case _KEYPAD:
+      rgbflag(C_PNK, C_ORG);
+      break;
     case _MOUSE:
       rgbflag(C_RED, C_GRN);
       break;
@@ -261,7 +285,7 @@ void set_state_leds(void) {
       }
       break;
     default: //  for any other layers, or the default layer
-      rgbflag(C_YAN, C_YAN);
+      rgbflag(C_PNK, C_PNK);
       break;
     }
   }
