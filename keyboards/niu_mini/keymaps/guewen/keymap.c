@@ -14,6 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ python -m venv env
+ source env/bin/activate
+ pip install qmk
+ sudo cp qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/
+ qmk compile -kb niu_mini -km guewen
+ qmk flash -kb niu_mini -km guewen
+*/
+
 #include QMK_KEYBOARD_H
 #include "xtonhasvim.h"
 #include "fancylighting.h"
@@ -76,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         FR_CH_QUOT, FR_CH_COMM,  FR_CH_DOT, FR_CH_P, FR_CH_Y,  FR_CH_F,   FR_CH_G, FR_CH_C, FR_CH_R, FR_CH_L, FR_CH_SLSH,
     LCTL_T(KC_ESC), FR_CH_A,    FR_CH_O,     FR_CH_E,   FR_CH_U, FR_CH_I,  FR_CH_D,   FR_CH_H, FR_CH_T, FR_CH_N, FR_CH_S, KC_BSPC,
     KC_LSFT,        FR_CH_COLN, FR_CH_Q,     FR_CH_J,   FR_CH_K, FR_CH_X,  FR_CH_B,   FR_CH_M, FR_CH_W, FR_CH_V, MOVE_Z,  RSFT_T(KC_ENT),
-    KC_LCTL,        TG(_MOUSE), KC_LALT,     KC_LGUI,   LOWER,         KC_SPC,        RAISE,   KC_RALT, KC_APP,  KC_RCTL, X_____X
+    KC_LCTL,        TG(_MOUSE), KC_LALT,     KC_LGUI,   LOWER,         KC_SPC,        RAISE,   KC_RALT, KC_APP,  KC_RCTL, KC_F24
 ),
 
 
@@ -140,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------------------------------------------------.
  * |RGBPlain|      | Reset| DEBUG|      |      |      |      |      |      |      |  Del |
  * |--------+------+------+------+------+-------------+------+------+------+------+------|
- * |RGBMode-|      |      |      |      |      |      |      | PREV | NEXT |      |Lite+ |
+ * |RGBMode-|      |      |      |SCREEN|      |      | PLAY | PREV | NEXT |      |Lite+ |
  * |--------+------+------+------+------+------|------+------+------+------+------+------|
  * |RGBMode+|      |SHRUG |TFLIP |Poop  |DPOINT|STRUT | MUTE | Vol- | Vol+ | Play |Lite- |
  * |--------+------+------+------+------+------+------+------+------+------+------+------|
@@ -149,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_mit(
     RGB_MODE_PLAIN,   X_____X,     RESET,   DEBUG,   X_____X, X_____X, X_____X, X_____X, X_____X, X_____X, X_____X,     KC_DEL,
-    RGB_MODE_REVERSE, X_____X,     X_____X, X_____X, X_____X, X_____X, X_____X, KC_MPLY, KC_MPRV, KC_MNXT, X_____X,     RGB_VAI,
+    RGB_MODE_REVERSE, X_____X,     X_____X, X_____X, KC_PSCR, X_____X, X_____X, KC_MPLY, KC_MPRV, KC_MNXT, X_____X,     RGB_VAI,
     RGB_MODE_FORWARD, X_____X,     SHRUG,   TFLIP,   POOP,    DPOINT,  STRUT, KC_MUTE, KC_VOLD, KC_VOLU, X_____X,     RGB_VAD,
     RGB_TOG,          TO(_DVORAK), _______, _______, _______,     _______,      _______, _______, _______, TO(_DVORAK), X_____X
 ),
