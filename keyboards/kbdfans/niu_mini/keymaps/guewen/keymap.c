@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------------------------------------------------.
  * |RGBPlain|      | Reset| DEBUG|      |      |      |      |      |      |      |  Del |
  * |--------+------+------+------+------+-------------+------+------+------+------+------|
- * |RGBMode-|      |      |      |      |      |      |      | PREV | NEXT |      |Lite+ |
+ * |RGBMode-|      |      |      |PRTSCR|      |      | PLAY | PREV | NEXT |      |Lite+ |
  * |--------+------+------+------+------+------|------+------+------+------+------+------|
  * |RGBMode+|      |SHRUG |TFLIP |Poop  |DPOINT|STRUT | MUTE | Vol- | Vol+ | Play |Lite- |
  * |--------+------+------+------+------+------+------+------+------+------+------+------|
@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_planck_mit(
     RGB_MODE_PLAIN,   XXXXXXX,     QK_BOOT,   DB_TOGG,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     KC_DEL,
-    RGB_MODE_REVERSE, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX,     RGB_VAI,
+    RGB_MODE_REVERSE, XXXXXXX,     XXXXXXX, XXXXXXX, KC_PSCR, XXXXXXX, XXXXXXX, KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX,     RGB_VAI,
     RGB_MODE_FORWARD, XXXXXXX,     SHRUG,   TFLIP,   POOP,    DPOINT,  STRUT, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,     RGB_VAD,
     RGB_TOG,          TO(_DVORAK), _______, _______, _______,     _______,      _______, _______, _______, TO(_DVORAK), XXXXXXX
 ),
