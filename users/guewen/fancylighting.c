@@ -35,9 +35,9 @@ void matrix_scan_keymap(void) {
 #define BREATH_FIRE_TIME 1000
 #define ANIMATION_STEP_INTERVAL 20
 
-#if RGBLED_NUM >= 2
-#define POWER_KEY_OFFSET (RGBLED_NUM / 2)
-#define SPACE_OFFSET_MAX (RGBLED_NUM / 2)
+#if RGBLIGHT_LED_COUNT >= 2
+#define POWER_KEY_OFFSET (RGBLIGHT_LED_COUNT / 2)
+#define SPACE_OFFSET_MAX (RGBLIGHT_LED_COUNT / 2)
 #else
 #define POWER_KEY_OFFSET 1
 #define SPACE_OFFSET_MAX 1
@@ -45,12 +45,12 @@ void matrix_scan_keymap(void) {
 
 uint16_t effect_start_timer = 0;
 uint8_t user_rgb_mode = 0;
-LED_TYPE shadowed_led[RGBLED_NUM] = {{0}};
+rgb_led_t shadowed_led[RGBLIGHT_LED_COUNT] = {{0}};
 
 void start_firey_return(void) {
   user_rgb_mode = BREATH_FIRE;
   effect_start_timer = timer_read();
-  for(uint8_t i = 0; i < RGBLED_NUM; i++) {
+  for(uint8_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
     shadowed_led[i] = led[i];
   }
 }
@@ -79,7 +79,7 @@ void set_color_for_offsets(uint16_t time_offset, uint16_t space_offset, uint8_t 
   float alpha = (time_progress + 0.1) * 7.0 - space_progress;
   alpha = fmin(1.0, alpha*alpha);
 
-  LED_TYPE px[1] = {{0}};
+  rgb_led_t px[1] = {{0}};
   sethsv((uint16_t)(fmod(time_progress * 1.5 + space_progress,1.0)*360), 255, (uint8_t)(progress*255),&px[0]);
   led[idx].r = alpha * px[0].r + ( 1.0 - alpha) * shadowed_led[idx].r;
   led[idx].g = alpha * px[0].g + ( 1.0 - alpha) * shadowed_led[idx].g;
@@ -107,9 +107,9 @@ void rgb_mode_breath_fire(void) {
     effect_start_timer = this_timer;
   } else {
     // linear fade
-    for(uint16_t i = 0; i < RGBLED_NUM; i++) {
+    for(uint16_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
       uint16_t space_offset = ABSDIFF(i,POWER_KEY_OFFSET);
-      if(space_offset > SPACE_OFFSET_MAX) space_offset = RGBLED_NUM - space_offset;
+      if(space_offset > SPACE_OFFSET_MAX) space_offset = RGBLIGHT_LED_COUNT - space_offset;
 
       set_color_for_offsets(elapsed, space_offset, i);
     }
@@ -131,7 +131,7 @@ void rgb_mode_fade_back(void) {
   float progress = (float)elapsed / FADE_BACK_TIME;
   progress = fmin(1.0,progress);
 
-  for(uint8_t i = 0; i < RGBLED_NUM; i++) {
+  for(uint8_t i = 0; i < RGBLIGHT_LED_COUNT; i++) {
     led[i].r = shadowed_led[i].r * progress;
     led[i].g = shadowed_led[i].g * progress;
     led[i].b = shadowed_led[i].b * progress;

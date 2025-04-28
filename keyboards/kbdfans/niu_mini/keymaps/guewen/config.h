@@ -1,12 +1,11 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
-
-#define UNICODE_SELECTED_MODES UC_LNX
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
 
 // help for fast typist+dual function keys?
 #define PERMISSIVE_HOLD
+#define RGBLIGHT_LAYERS
 
 /* speed up mousekeys a bit */
 #define MOUSEKEY_DELAY             50
@@ -15,7 +14,6 @@
 #define MOUSEKEY_TIME_TO_MAX       30
 #define MOUSEKEY_WHEEL_MAX_SPEED   8
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
-
 
 // reduce size of firmware
 #if !defined(NO_DEBUG) && !defined(CONSOLE_ENABLE)

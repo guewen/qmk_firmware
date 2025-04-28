@@ -18,12 +18,8 @@
 #define _fancy_lighting_h
 #ifdef RGBLIGHT_ENABLE
 
-#include "xtonhasvim.h"
-
-
 extern uint8_t user_rgb_mode;
-extern LED_TYPE shadowed_led[];
-
+extern rgb_led_t shadowed_led[];
 
 #endif //RGBLIGHT_ENABLE
 void start_firey_return(void);
