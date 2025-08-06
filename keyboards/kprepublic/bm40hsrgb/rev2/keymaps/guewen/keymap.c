@@ -20,8 +20,8 @@ enum layers {
   _DVORAK,
   _LOWER,
   _RAISE,
-  _KEYPAD,
   _ADJUST,
+  _KEYPAD,
   _MOVE,
   _MOUSE
 };
@@ -74,24 +74,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, TO(_DVORAK), _______, _______, _______, KC_BSPC,              _______,  _______, KC_F11,   KC_F12,   _______
 ),
 
-/* Keypad
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      |   7  |   8  |   9  |   #  |      |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |   *  |   4  |   5  |   6  |   -  |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |   /  |   1  |   2  |   3  |   +  |Sft/Ent|
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |    Space    |      |   0  |   .  |   =  |      |
- * `-----------------------------------------------------------------------------------'
- */
-[_KEYPAD] = LAYOUT_ortho_4x12_1x2uC(
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     CH_7,  CH_8, CH_9,     CH_HASH,  _______,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CH_ASTR,  CH_4,  CH_5, CH_6,     CH_MINS,  _______,
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CH_SLSH,  CH_1,  CH_2, CH_3,     CH_PLUS,  _______,
-    _______, _______, _______, _______, _______,       _______,        _______,  CH_0, CH_DOT,   CH_EQL,   _______
-),
-
 /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   "  |   !  |   #  |   $  |   (  |   )  |   &  |   *  |   %  |   ^  |      |
@@ -112,9 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-------------------------------------------------------------------------------------.
- * |        |      | Reset| DEBUG|      |      |      |      |      |      |      |  Del |
+ * |        |      | Reset| DEBUG| HUE+ | HUE- | SAT+ | SAT- |BRGTH+|BRGTH-|      |  Del |
  * |--------+------+------+------+------+-------------+------+------+------+------+------|
- * |RGBMode-| HUE+ | HUE- | SAT+ | SAT- |BRGTH+|BRGTH-| Play | PREV | NEXT |      |Lite+ |
+ * |RGBMode-|      |      |      |PRTSCR|      |      | Play | PREV | NEXT |      |Lite+ |
  * |--------+------+------+------+------+------|------+------+------+------+------+------|
  * |RGBMode+|      |SHRUG |TFLIP |Poop  |DPOINT|STRUT | MUTE | Vol- | Vol+ |      |Lite- |
  * |--------+------+------+------+------+------+------+------+------+------+------+------|
@@ -122,10 +104,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12_1x2uC(
-    _______,   XXXXXXX,     QK_BOOT,   DB_TOGG,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     KC_DEL,
-    RM_PREV, RM_HUEU, RM_HUED, RM_SATU, RM_SATD,  RM_VALU, RM_VALD, KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX,     _______,
+    _______,   XXXXXXX,     QK_BOOT,   DB_TOGG,   RM_HUEU, RM_HUED, RM_SATU, RM_SATD,  RM_VALU, RM_VALD, XXXXXXX,     KC_DEL,
+    RM_PREV, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, XXXXXXX, XXXXXXX, KC_MPLY, KC_MPRV, KC_MNXT, XXXXXXX,     _______,
     RM_NEXT, XXXXXXX,     SHRUG,   TFLIP,   POOP,    DPOINT,  STRUT, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,     _______,
     RM_TOGG,          TO(_DVORAK), _______, _______, _______,     _______,      _______, _______, _______, TO(_DVORAK), XXXXXXX
+),
+
+/* Keypad
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |   7  |   8  |   9  |   #  |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |   *  |   4  |   5  |   6  |   -  |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |   /  |   1  |   2  |   3  |   +  |Sft/Ent|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |    Space    |      |   0  |   .  |   =  |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_KEYPAD] = LAYOUT_ortho_4x12_1x2uC(
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     CH_7,  CH_8, CH_9,     CH_HASH,  _______,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CH_ASTR,  CH_4,  CH_5, CH_6,     CH_MINS,  _______,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, CH_SLSH,  CH_1,  CH_2, CH_3,     CH_PLUS,  _______,
+    _______, _______, _______, _______, _______,       _______,        _______,  CH_0, CH_DOT,   CH_EQL,   _______
 ),
 
 /* movement layer (hold z)
@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------+------+------+------+------+------|
  * |        |      | Left | Down | Right|      |      | BTN1 | BTN2 | BTN3 |      |      |
  * |--------+------+------+------+------+------|------+------+------+------+------+------|
- * |       LAYOUT_ortho_4x12_1x2uC(
+ * |        |      |      |      |      |      |      |      |      |      |      |      |
  * |--------+------+------+------+------+------+------+------+------+------+------+------|
  * |        | Bail |      |      |      |             |      |      |      | Bail |      |
  * `-------------------------------------------------------------------------------------'
